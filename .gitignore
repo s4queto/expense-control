@@ -1,0 +1,6 @@
+# Configurações dos editores
+.idea/
+.vscode/
+
+# Banco de dados local (H2)
+backend/data/

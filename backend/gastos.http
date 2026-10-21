@@ -1,0 +1,31 @@
+POST http://localhost:8080/gastos
+Content-Type: application/json
+
+{
+  "descricao": "uber",
+  "valor": 25.00,
+  "data": "2026-10-21",
+  "categoria": "transporte"
+}
+
+###
+
+DELETE http://localhost:8080/gastos/5
+
+###
+
+PUT http://localhost:8080/gastos/4
+Content-Type: application/json
+
+{
+  "descricao": "uber para o trabalho",
+  "valor": 32.50,
+  "data": "2026-10-21",
+  "categoria": "transporte"
+}
+
+###buscar gasto que existe
+GET http://localhost:8080/gasto/1
+
+###buscar o que não existe
+GET http://localhost:8080/gasto/99
