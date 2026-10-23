@@ -4,3 +4,5 @@
 
 # Banco de dados local (H2)
 backend/data/
+# Guia em PDF (fica só no computador)
+Guia-Git-GitHub.pdf
