@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus gastos · Expense Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="painel.css">
+</head>
+<body class="pagina-app">
+
+    <!-- ========== BARRA LATERAL (os tópicos do painel) ========== -->
+    <aside class="lateral" id="lateral">
+        <a href="index.html" class="marca">Expense <em>Control</em></a>
+
+        <nav class="lateral-menu">
+            <span class="lateral-grupo">Gastos</span>
+            <a href="#adicionar" data-tela="adicionar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                Adicionar gasto
+            </a>
+            <a href="#mes" data-tela="mes">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+                Meu mês
+            </a>
+            <a href="#gastos" data-tela="gastos">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>
+                Meus gastos
+            </a>
+
+            <span class="lateral-grupo">Análise</span>
+            <a href="#graficos" data-tela="graficos">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M2 20h20"/></svg>
+                Gráficos
+            </a>
+            <a href="#estatisticas" data-tela="estatisticas">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>
+                Estatísticas
+            </a>
+
+            <span class="lateral-grupo">Futuro</span>
+            <a href="#metas" data-tela="metas">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+                Metas
+            </a>
+            <a href="#investimentos" data-tela="investimentos">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg>
+                Investimentos
+            </a>
+        </nav>
+
+        <div class="lateral-rodape">
+            <div class="lateral-usuario">
+                <span class="avatar" id="avatar">?</span>
+                <span id="nomeUsuario">Olá!</span>
+            </div>
+            <button type="button" id="botaoSair" class="lateral-sair">Sair</button>
+        </div>
+    </aside>
+
+    <!-- topo que só aparece no celular, com o botão que abre a barra lateral -->
+    <header class="app-topo">
+        <button type="button" id="abrirMenu" class="abrir-menu" aria-label="Abrir menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <a href="index.html" class="marca">Expense <em>Control</em></a>
+    </header>
+    <div class="fundo-menu" id="fundoMenu"></div>
+
+    <main class="app-conteudo">
+        <p id="avisoBack" class="aviso-back" hidden></p>
+
+        <!-- ========== TELA 1: ADICIONAR GASTO (tela inicial, bem simples) ========== -->
+        <section class="tela tela-lancar" id="tela-adicionar">
+            <form id="formGasto" class="lancar" novalidate>
+                <p class="sobretitulo" id="dataHoje"></p>
+                <h1 class="lancar-titulo" id="tituloForm"><span id="saudacao">Olá</span>, quanto você <em>gastou</em>?</h1>
+
+                <!-- 1. o valor -->
+                <label class="lancar-valor">
+                    <span>R$</span>
+                    <input type="text" id="valor" inputmode="decimal" placeholder="0,00" autocomplete="off" aria-label="Valor gasto">
+                </label>
+
+                <!-- 2. a categoria -->
+                <div class="escolha-categoria lancar-categorias" id="escolhaCategoria" role="radiogroup" aria-label="Categoria"></div>
+
+                <!-- opcionais: descrição e data -->
+                <input type="text" id="descricao" class="lancar-descricao" placeholder="Com o quê? (opcional)" maxlength="80" autocomplete="off">
+                <div class="lancar-data">
+                    <button type="button" id="botaoData" class="botao-texto">📅 Hoje · mudar data</button>
+                    <input type="date" id="data" hidden>
+                </div>
+
+                <!-- 3. lançar -->
+                <button type="submit" id="botaoSalvar" class="lancar-botao">Lançar gasto</button>
+                <button type="button" id="botaoCancelar" class="botao-texto" hidden>Cancelar edição</button>
+                <p id="mensagem" class="mensagem lancar-mensagem" role="status"></p>
+            </form>
+
+            <p class="lancar-rodape">
+                Hoje <strong id="rodapeHoje">R$ 0,00</strong> · Este mês <strong id="rodapeMes">R$ 0,00</strong> ·
+                <a href="#mes">Ver meu mês →</a>
+            </p>
+        </section>
+
+        <!-- ========== TELA: MEU MÊS (o resumo para ver no fim do mês) ========== -->
+        <section class="tela" id="tela-mes" hidden>
+            <p class="sobretitulo">Resumo</p>
+            <h1 class="tela-titulo">Quanto você gastou <em>de verdade</em></h1>
+
+            <div class="filtros">
+                <select id="mesResumo" aria-label="Mês do resumo"></select>
+            </div>
+
+            <!-- assistente de IA: por enquanto só o botão (a integração com o backend vem depois) -->
+            <div class="cartao assistente-ia">
+                <div class="assistente-texto">
+                    <span class="assistente-selo">IA</span>
+                    <div>
+                        <h2>Assistente de gastos</h2>
+                        <p class="cartao-sub">Peça para a IA analisar seus gastos e sugerir onde economizar.</p>
+                    </div>
+                </div>
+                <button type="button" id="botaoIA" class="botao-ia">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.9L19 9.7l-5.2 1.8L12 16.5l-1.8-5L5 9.7l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+                    Analisar com IA
+                </button>
+                <p id="respostaIA" class="resposta-ia" role="status" hidden></p>
+            </div>
+
+            <div class="indicadores">
+                <div class="indicador">
+                    <span>Total gasto</span>
+                    <strong id="totalMes">R$ 0,00</strong>
+                    <small id="comparacaoMes">&nbsp;</small>
+                </div>
+                <div class="indicador">
+                    <span>Lançamentos</span>
+                    <strong id="qtdMes">0</strong>
+                    <small id="maiorCategoriaMes">&nbsp;</small>
+                </div>
+                <div class="indicador">
+                    <span>Média por dia</span>
+                    <strong id="mediaDia">R$ 0,00</strong>
+                    <small id="mediaDiaInfo">&nbsp;</small>
+                </div>
+                <div class="indicador">
+                    <span id="previsaoRotulo">Previsão para o mês</span>
+                    <strong id="previsaoMes">R$ 0,00</strong>
+                    <small id="previsaoInfo">se continuar nesse ritmo</small>
+                </div>
+            </div>
+
+            <div class="duas-colunas duas-iguais">
+                <div class="cartao">
+                    <div class="cartao-cabecalho">
+                        <h2>Para onde foi</h2>
+                        <a href="#graficos" class="link-ver">Ver gráficos →</a>
+                    </div>
+                    <ul id="porCategoriaMes" class="por-categoria"></ul>
+                </div>
+
+                <div class="cartao">
+                    <div class="cartao-cabecalho">
+                        <h2>Últimos lançamentos</h2>
+                        <a href="#gastos" class="link-ver">Ver todos →</a>
+                    </div>
+                    <ul id="ultimosGastos" class="lista-gastos"></ul>
+                </div>
+            </div>
+
+            <div class="cartao resumo-metas">
+                <div class="cartao-cabecalho">
+                    <h2>Suas metas</h2>
+                    <a href="#metas" class="link-ver">Organizar metas →</a>
+                </div>
+                <ul id="resumoMetas" class="metas-mini"></ul>
+            </div>
+        </section>
+
+        <!-- ========== TELA: METAS ========== -->
+        <section class="tela" id="tela-metas" hidden>
+            <p class="sobretitulo">Objetivos</p>
+            <h1 class="tela-titulo">Suas <em>metas</em></h1>
+
+            <div class="indicadores indicadores-3">
+                <div class="indicador">
+                    <span>Metas ativas</span>
+                    <strong id="metasAtivas">0</strong>
+                    <small id="metasConcluidas">&nbsp;</small>
+                </div>
+                <div class="indicador">
+                    <span>Já guardado</span>
+                    <strong id="metasGuardado">R$ 0,00</strong>
+                    <small id="metasDe">&nbsp;</small>
+                </div>
+                <div class="indicador">
+                    <span>Guardar por mês</span>
+                    <strong id="metasPorMes">R$ 0,00</strong>
+                    <small>para bater todas no prazo</small>
+                </div>
+            </div>
+
+            <div class="duas-colunas">
+                <form id="formMeta" class="formulario cartao">
+                    <h2 id="tituloFormMeta">Nova meta</h2>
+
+                    <label>Nome da meta
+                        <input type="text" id="metaNome" placeholder="Ex.: Viagem de fim de ano" required maxlength="60">
+                    </label>
+                    <div class="linha">
+                        <label>Quanto quero juntar (R$)
+                            <input type="number" id="metaValor" min="1" step="0.01" placeholder="5000" required>
+                        </label>
+                        <label>Já tenho (R$)
+                            <input type="number" id="metaGuardado" min="0" step="0.01" placeholder="0">
+                        </label>
+                    </div>
+                    <label>Prazo
+                        <input type="date" id="metaPrazo">
+                    </label>
+                    <label>Anotações
+                        <textarea id="metaNotas" rows="3" maxlength="500" placeholder="Por que essa meta é importante, ideias, próximos passos…"></textarea>
+                    </label>
+
+                    <button type="submit" id="botaoSalvarMeta">Criar meta</button>
+                    <button type="button" id="botaoCancelarMeta" class="botao-texto" hidden>Cancelar edição</button>
+                </form>
+
+                <div class="cartao">
+                    <h2>Bloco de anotações</h2>
+                    <p class="cartao-sub">Ideias, lembretes, contas para pagar… salva sozinho.</p>
+                    <textarea id="blocoNotas" class="bloco-notas" placeholder="Escreva aqui…"></textarea>
+                    <p class="nota-salva" id="notaSalva">&nbsp;</p>
+                </div>
+            </div>
+
+            <div class="filtros abas-metas" role="tablist">
+                <button type="button" class="aba-meta ativa" data-filtro="ativas">Em andamento</button>
+                <button type="button" class="aba-meta" data-filtro="concluidas">Concluídas</button>
+            </div>
+            <div class="lista-metas" id="listaMetas"></div>
+        </section>
+
+        <!-- ========== TELA 2: MEUS GASTOS ========== -->
+        <section class="tela" id="tela-gastos" hidden>
+            <p class="sobretitulo">Histórico</p>
+            <h1 class="tela-titulo">Meus <em>gastos</em></h1>
+
+            <div class="filtros">
+                <input type="search" id="filtroBusca" placeholder="Buscar pela descrição…" aria-label="Buscar">
+                <select id="filtroMes" aria-label="Mês"></select>
+                <select id="filtroCategoria" aria-label="Categoria"></select>
+            </div>
+
+            <div class="cartao">
+                <div class="cartao-cabecalho">
+                    <h2 id="resumoFiltro">0 gastos</h2>
+                    <strong id="totalFiltro" class="total-filtro">R$ 0,00</strong>
+                </div>
+                <div class="tabela-rolagem">
+                    <table class="tabela-gastos">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th class="num">Valor</th>
+                                <th><span class="so-leitor">Ações</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabela"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== TELA 3: GRÁFICOS ========== -->
+        <section class="tela" id="tela-graficos" hidden>
+            <p class="sobretitulo">Análise</p>
+            <h1 class="tela-titulo">Seu <em>dinheiro</em> em gráficos</h1>
+
+            <div class="filtros">
+                <select id="graficoMes" aria-label="Mês dos gráficos"></select>
+            </div>
+
+            <div class="grade-cartoes">
+                <div class="cartao">
+                    <h2>Por categoria</h2>
+                    <p class="cartao-sub" id="subCategoria"></p>
+                    <div class="rosca-area">
+                        <svg id="graficoRosca" class="rosca" viewBox="0 0 200 200" role="img" aria-label="Gastos por categoria"></svg>
+                        <ul id="legendaRosca" class="legenda-rosca"></ul>
+                    </div>
+                </div>
+
+                <div class="cartao">
+                    <h2>Últimos 6 meses</h2>
+                    <p class="cartao-sub">Total gasto em cada mês</p>
+                    <svg id="graficoMeses" class="grafico-barras" role="img" aria-label="Total gasto por mês"></svg>
+                </div>
+
+                <div class="cartao cartao-largo">
+                    <h2>Dia a dia</h2>
+                    <p class="cartao-sub" id="subDias"></p>
+                    <svg id="graficoDias" class="grafico-barras" role="img" aria-label="Total gasto por dia"></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== TELA 4: ESTATÍSTICAS ========== -->
+        <section class="tela" id="tela-estatisticas" hidden>
+            <p class="sobretitulo">Curiosidades</p>
+            <h1 class="tela-titulo">O que seus gastos <em>contam</em> sobre você</h1>
+
+            <div class="filtros">
+                <select id="estatMes" aria-label="Mês das estatísticas"></select>
+            </div>
+
+            <div class="grade-estat">
+                <div class="cartao estat">
+                    <span class="estat-rotulo">Maior gasto do mês</span>
+                    <strong id="estMaior">—</strong>
+                    <p id="estMaiorInfo"></p>
+                </div>
+                <div class="cartao estat">
+                    <span class="estat-rotulo">Valor médio por gasto</span>
+                    <strong id="estTicket">—</strong>
+                    <p id="estTicketInfo"></p>
+                </div>
+                <div class="cartao estat">
+                    <span class="estat-rotulo">Dias sem gastar</span>
+                    <strong id="estDiasSem">—</strong>
+                    <p id="estDiasSemInfo"></p>
+                </div>
+                <div class="cartao estat">
+                    <span class="estat-rotulo">Fim de semana</span>
+                    <strong id="estFimSemana">—</strong>
+                    <p id="estFimSemanaInfo"></p>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Calendário do mês</h2>
+                    <p class="cartao-sub">Quanto mais escuro o dia, mais você gastou</p>
+                    <div class="calendario" id="calendario"></div>
+                    <div class="calendario-escala">
+                        <span>Menos</span><i></i><i></i><i></i><i></i><i></i><span>Mais</span>
+                    </div>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Dia da semana mais caro</h2>
+                    <p class="cartao-sub" id="subSemana"></p>
+                    <svg id="graficoSemana" class="grafico-barras grafico-baixo" role="img" aria-label="Total gasto por dia da semana"></svg>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Regra 50 · 30 · 20</h2>
+                    <p class="cartao-sub">Como seus gastos do mês se dividem entre essencial e desejos</p>
+                    <div class="barra-regra" id="barraRegra"></div>
+                    <p class="regra-texto" id="regraTexto"></p>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Gastos que se repetem</h2>
+                    <p class="cartao-sub">Descrições que mais aparecem no seu histórico</p>
+                    <ul class="lista-ranking" id="listaRepetidos"></ul>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Seus meses</h2>
+                    <p class="cartao-sub">O mais caro e o mais econômico do histórico</p>
+                    <div class="meses-extremos" id="mesesExtremos"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== TELA 5: INVESTIMENTOS ========== -->
+        <section class="tela" id="tela-investimentos" hidden>
+            <p class="sobretitulo">Planejamento</p>
+            <h1 class="tela-titulo">Faça seu <em>dinheiro</em> trabalhar por você</h1>
+
+            <div class="grade-estat">
+                <div class="cartao estat-largo orcamento">
+                    <h2>Seu orçamento</h2>
+                    <p class="cartao-sub">Informe sua renda para descobrir quanto dá para guardar</p>
+                    <label class="campo-renda">Renda mensal (R$)
+                        <input type="number" id="renda" min="0" step="50" placeholder="Ex.: 3500">
+                    </label>
+                    <dl class="orcamento-numeros">
+                        <div><dt>Gasto médio por mês</dt><dd id="gastoMedio">R$ 0,00</dd></div>
+                        <div><dt>Sobra por mês</dt><dd id="sobra">—</dd></div>
+                        <div><dt>Quanto da renda você guarda</dt><dd id="taxaPoupanca">—</dd></div>
+                    </dl>
+                    <p class="regra-texto" id="dicaOrcamento"></p>
+                </div>
+
+                <div class="cartao estat-largo">
+                    <h2>Reserva de emergência</h2>
+                    <p class="cartao-sub">Meta: 6 meses do seu custo de vida</p>
+                    <strong class="valor-grande" id="metaReserva">R$ 0,00</strong>
+                    <p class="regra-texto" id="tempoReserva"></p>
+                </div>
+            </div>
+
+            <div class="cartao simulador-app">
+                <div class="controles">
+                    <h2>Simulador</h2>
+                    <div class="linha">
+                        <label>Valor inicial (R$)
+                            <input type="number" id="simInicial" min="0" step="100" value="0">
+                        </label>
+                        <label>Aporte por mês (R$)
+                            <input type="number" id="simAporte" min="0" step="50" value="300">
+                        </label>
+                    </div>
+                    <label class="controle-faixa">
+                        <span>Rendimento ao ano <output id="saidaTaxa">10%</output></span>
+                        <input type="range" id="simTaxa" min="1" max="20" step="0.5" value="10">
+                    </label>
+                    <label class="controle-faixa">
+                        <span>Durante <output id="saidaAnos">10 anos</output></span>
+                        <input type="range" id="simAnos" min="1" max="40" step="1" value="10">
+                    </label>
+                    <button type="button" id="usarSobra" class="botao-texto">Usar minha sobra como aporte</button>
+
+                    <dl class="resultados">
+                        <div><dt>Você investiu</dt><dd id="simInvestido">R$ 0</dd></div>
+                        <div><dt>Rendimento</dt><dd id="simJuros">R$ 0</dd></div>
+                        <div class="resultado-final"><dt>Total acumulado</dt><dd id="simTotal">R$ 0</dd></div>
+                    </dl>
+                </div>
+
+                <div>
+                    <svg id="graficoInvest" class="grafico-barras grafico-alto" role="img" aria-label="Valor acumulado por ano"></svg>
+                    <div class="legenda">
+                        <span><i class="cor-guardado"></i>Valor investido</span>
+                        <span><i class="cor-juros"></i>Rendimento</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grade-estat">
+                <div class="cartao estat-largo">
+                    <h2>Onde o mesmo aporte chega</h2>
+                    <p class="cartao-sub" id="subComparar"></p>
+                    <ul class="comparar" id="compararInvest"></ul>
+                </div>
+
+                <div class="cartao estat-largo destaque-cartao">
+                    <h2>O preço dos pequenos desejos</h2>
+                    <p class="cartao-sub">Lazer e Outros do mês atual, se investidos todo mês</p>
+                    <strong class="valor-grande" id="custoOportunidade">R$ 0,00</strong>
+                    <p class="regra-texto" id="custoOportunidadeInfo"></p>
+                </div>
+            </div>
+
+            <p class="aviso">Simulações ilustrativas, com taxa fixa e sem impostos nem inflação. As taxas de comparação são exemplos — confira as atuais antes de investir. Não é recomendação de investimento.</p>
+        </section>
+    </main>
+
+    <!-- caixinha que aparece ao passar o mouse nos gráficos -->
+    <div id="dica" class="dica" hidden></div>
+
+    <script src="api.js"></script>
+    <script src="painel.js"></script>
+</body>
+</html>
