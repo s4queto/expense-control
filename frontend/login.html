@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-i18n-titulo="auth.titulo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus gastos · Expense Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pagina-auth">
+
+    <aside class="auth-lado">
+        <a href="index.html" class="marca">Expense <em>Control</em></a>
+        <blockquote data-i18n-html="auth.frase">
+            Quem sabe para onde vai o próprio <em>dinheiro</em> decide para onde ele vai.
+        </blockquote>
+        <ul class="auth-lista">
+            <li data-i18n="auth.lista1">Registre seus gastos em segundos</li>
+            <li data-i18n="auth.lista2">Veja quanto vai para cada categoria</li>
+            <li data-i18n="auth.lista3">Só você vê os seus dados</li>
+        </ul>
+    </aside>
+
+    <main class="auth-conteudo">
+        <div class="auth-form">
+            <div class="auth-topo">
+                <a href="index.html" class="voltar" data-i18n="auth.voltar">← Voltar ao início</a>
+                <button type="button" class="troca-idioma" data-i18n="comum.trocaIdioma" data-i18n-aria="comum.trocaIdiomaAria">EN</button>
+            </div>
+
+            <!-- as duas abas: trocam qual formulário aparece (controlado pelo auth.js) -->
+            <div class="auth-abas" role="tablist">
+                <button type="button" class="auth-aba ativa" data-aba="login" role="tab" data-i18n="auth.abaEntrar">Entrar</button>
+                <button type="button" class="auth-aba" data-aba="cadastro" role="tab" data-i18n="auth.abaCriar">Criar conta</button>
+            </div>
+
+            <!-- ENTRAR -->
+            <form id="formLogin" class="formulario" data-painel="login">
+                <h1 data-i18n="auth.loginTitulo">Entrar</h1>
+                <p class="auth-sub" data-i18n="auth.loginSub">Acesse seu painel de gastos.</p>
+
+                <label><span data-i18n="auth.email">E-mail</span>
+                    <input type="email" id="loginEmail" autocomplete="email" required placeholder="voce@email.com" data-i18n-placeholder="auth.emailExemplo">
+                </label>
+                <label><span data-i18n="auth.senha">Senha</span>
+                    <span class="campo-senha">
+                        <input type="password" id="loginSenha" autocomplete="current-password" required placeholder="Sua senha" data-i18n-placeholder="auth.suaSenha">
+                        <button type="button" class="ver-senha">Mostrar</button>
+                    </span>
+                </label>
+
+                <button type="submit" data-i18n="auth.botaoEntrar">Entrar</button>
+                <p class="mensagem" role="status"></p>
+
+                <p class="auth-troca"><span data-i18n="auth.semConta">Ainda não tem conta?</span> <a href="#cadastro" data-ir="cadastro" data-i18n="auth.linkCriar">Criar conta</a></p>
+            </form>
+
+            <!-- CRIAR CONTA -->
+            <form id="formCadastro" class="formulario" data-painel="cadastro" hidden>
+                <h1 data-i18n="auth.cadastroTitulo">Crie sua conta</h1>
+                <p class="auth-sub" data-i18n="auth.cadastroSub">Leva menos de um minuto.</p>
+
+                <label><span data-i18n="auth.nome">Nome</span>
+                    <input type="text" id="cadastroNome" autocomplete="name" required maxlength="80" placeholder="Seu nome" data-i18n-placeholder="auth.seuNome">
+                </label>
+                <label><span data-i18n="auth.email">E-mail</span>
+                    <input type="email" id="cadastroEmail" autocomplete="email" required placeholder="voce@email.com" data-i18n-placeholder="auth.emailExemplo">
+                </label>
+                <label><span data-i18n="auth.idioma">Idioma</span>
+                    <!-- os nomes dos idiomas ficam sempre na própria língua -->
+                    <select id="cadastroIdioma" required>
+                        <option value="pt-BR">Português</option>
+                        <option value="en">English</option>
+                    </select>
+                </label>
+                <label><span data-i18n="auth.senha">Senha</span>
+                    <span class="campo-senha">
+                        <input type="password" id="cadastroSenha" autocomplete="new-password" required minlength="6" placeholder="Mínimo de 6 caracteres" data-i18n-placeholder="auth.minimo">
+                        <button type="button" class="ver-senha">Mostrar</button>
+                    </span>
+                </label>
+                <label><span data-i18n="auth.confirmar">Confirmar senha</span>
+                    <span class="campo-senha">
+                        <input type="password" id="cadastroConfirmar" autocomplete="new-password" required placeholder="Repita a senha" data-i18n-placeholder="auth.repita">
+                        <button type="button" class="ver-senha">Mostrar</button>
+                    </span>
+                </label>
+
+                <button type="submit" data-i18n="auth.botaoCriar">Criar conta</button>
+                <p class="mensagem" role="status"></p>
+
+                <p class="auth-troca"><span data-i18n="auth.temConta">Já tem conta?</span> <a href="#login" data-ir="login" data-i18n="auth.linkEntrar">Entrar</a></p>
+            </form>
+        </div>
+    </main>
+
+    <script src="idioma.js"></script>
+    <script src="api.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

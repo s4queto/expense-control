@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-i18n-titulo="index.titulo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- a palavra que viaja pelo site (controlada pelo script.js) -->
+    <span id="viajante" aria-hidden="true" data-i18n="comum.dinheiro">dinheiro</span>
+
+    <header class="topo">
+        <a href="#inicio" class="marca">Expense <em>Control</em></a>
+        <nav>
+            <a href="#vazamento" data-i18n="index.navProblema">O problema</a>
+            <a href="#porque" data-i18n="index.navPorque">Por que guardar</a>
+            <a href="#simulador" data-i18n="index.navSimulador">Simulador</a>
+            <a href="#passos" data-i18n="index.navPassos">Como guardar</a>
+            <a href="login.html" class="nav-conta" data-i18n="index.navMeusGastos">Meus gastos</a>
+            <a href="login.html#cadastro" class="botao-nav" data-i18n="index.navCriarConta">Criar conta</a>
+            <button type="button" class="troca-idioma" data-i18n="comum.trocaIdioma" data-i18n-aria="comum.trocaIdiomaAria">EN</button>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- 1. ABERTURA -->
+        <section id="inicio" class="hero">
+            <p class="sobretitulo" data-i18n="index.heroSobre">Educação financeira · Controle de gastos</p>
+            <h1 data-i18n-html="index.heroTitulo">Para onde vai seu <span class="pouso">dinheiro</span>?</h1>
+            <p class="lead" data-i18n="index.heroLead">Antes de guardar, é preciso enxergar. Role a página e acompanhe o caminho que ele faz todo mês.</p>
+            <div class="rolar"><span></span><div data-i18n="index.rolar">Role para baixo</div></div>
+        </section>
+
+        <!-- 2. O PROBLEMA -->
+        <section id="vazamento" class="secao">
+            <div class="container">
+                <p class="sobretitulo" data-i18n="index.vazSobre">01 · O vazamento</p>
+                <h2 data-i18n-html="index.vazTitulo">Seu <span class="pouso">dinheiro</span> escapa nos detalhes.</h2>
+                <p class="texto" data-i18n="index.vazTexto">Raramente é uma grande compra que desequilibra o mês. São os gastos pequenos e repetidos, que parecem inofensivos sozinhos, mas viram muito no fim do ano.</p>
+
+                <div class="cards">
+                    <article class="card revelar">
+                        <span class="card-rotulo" data-i18n="index.cafe">Um café por dia</span>
+                        <span class="card-conta" data-i18n="index.cafeConta">R$ 8 × 365 dias</span>
+                        <strong class="contador" data-valor="2920">R$ 0</strong>
+                        <span class="card-rodape" data-i18n="index.porAno">por ano</span>
+                    </article>
+                    <article class="card revelar">
+                        <span class="card-rotulo" data-i18n="index.delivery">Delivery 2× por semana</span>
+                        <span class="card-conta" data-i18n="index.deliveryConta">R$ 45 × 104 pedidos</span>
+                        <strong class="contador" data-valor="4680">R$ 0</strong>
+                        <span class="card-rodape" data-i18n="index.porAno">por ano</span>
+                    </article>
+                    <article class="card revelar">
+                        <span class="card-rotulo" data-i18n="index.assinaturas">Assinaturas esquecidas</span>
+                        <span class="card-conta" data-i18n="index.assinaturasConta">R$ 60 × 12 meses</span>
+                        <strong class="contador" data-valor="720">R$ 0</strong>
+                        <span class="card-rodape" data-i18n="index.porAno">por ano</span>
+                    </article>
+                </div>
+
+                <p class="destaque revelar"><span data-i18n="index.juntos">Juntos, só esses três hábitos somam</span> <strong class="contador" data-valor="8320">R$ 0</strong> <span data-i18n="index.porAno">por ano</span>.</p>
+            </div>
+        </section>
+
+        <!-- 3. POR QUE GUARDAR -->
+        <section id="porque" class="secao secao-escura">
+            <div class="container">
+                <p class="sobretitulo" data-i18n="index.porqueSobre">02 · O motivo</p>
+                <h2 data-i18n-html="index.porqueTitulo">Guardar <span class="pouso">dinheiro</span> é comprar tranquilidade.</h2>
+
+                <div class="motivos">
+                    <article class="motivo revelar">
+                        <span class="numero">01</span>
+                        <h3 data-i18n="index.motivo1Titulo">Imprevistos não avisam</h3>
+                        <p data-i18n="index.motivo1Texto">Um conserto, uma consulta, um mês sem renda. Com uma reserva, o imprevisto vira um incômodo, não uma dívida no cartão.</p>
+                    </article>
+                    <article class="motivo revelar">
+                        <span class="numero">02</span>
+                        <h3 data-i18n="index.motivo2Titulo">Liberdade de escolha</h3>
+                        <p data-i18n="index.motivo2Texto">Quem tem uma reserva consegue dizer não: a um emprego ruim, a um parcelamento caro, a uma decisão tomada por pressão.</p>
+                    </article>
+                    <article class="motivo revelar">
+                        <span class="numero">03</span>
+                        <h3 data-i18n="index.motivo3Titulo">O tempo trabalha por você</h3>
+                        <p data-i18n="index.motivo3Texto">Com juros compostos, o rendimento também rende. Quanto antes você começa, menos esforço precisa fazer depois.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SIMULADOR -->
+        <section id="simulador" class="secao">
+            <div class="container">
+                <p class="sobretitulo" data-i18n="index.simSobre">03 · O tempo</p>
+                <h2 data-i18n-html="index.simTitulo">Seu <span class="pouso">dinheiro</span> cresce quando fica parado.</h2>
+                <p class="texto" data-i18n="index.simTexto">Mexa nos valores e veja quanto um hábito de guardar todo mês pode virar.</p>
+
+                <div class="simulador revelar">
+                    <div class="controles">
+                        <label>
+                            <span><span data-i18n="index.simPorMes">Guardar por mês</span> <output id="saidaAporte">R$ 300</output></span>
+                            <input type="range" id="aporte" min="50" max="3000" step="50" value="300">
+                        </label>
+                        <label>
+                            <span><span data-i18n="index.simDurante">Durante</span> <output id="saidaAnos">10 anos</output></span>
+                            <input type="range" id="anos" min="1" max="30" step="1" value="10">
+                        </label>
+
+                        <dl class="resultados">
+                            <div>
+                                <dt data-i18n="index.simGuardou">Você guardou</dt>
+                                <dd id="totalGuardado">R$ 0</dd>
+                            </div>
+                            <div>
+                                <dt data-i18n="index.simRendimento">Rendimento</dt>
+                                <dd id="totalJuros">R$ 0</dd>
+                            </div>
+                            <div class="resultado-final">
+                                <dt data-i18n="index.simTotal">Total acumulado</dt>
+                                <dd id="totalFinal">R$ 0</dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="grafico">
+                        <svg id="grafico" role="img" aria-label="Gráfico do valor acumulado por ano" data-i18n-aria="index.simGraficoAria"></svg>
+                        <div class="legenda">
+                            <span><i class="cor-guardado"></i><span data-i18n="index.simValorGuardado">Valor guardado</span></span>
+                            <span><i class="cor-juros"></i><span data-i18n="index.simRendimento">Rendimento</span></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="aviso" data-i18n="index.simAviso">Simulação ilustrativa com rendimento fixo de 0,7% ao mês, sem impostos e sem inflação. Não é uma recomendação de investimento.</p>
+            </div>
+        </section>
+
+        <!-- 5. COMO GUARDAR -->
+        <section id="passos" class="secao secao-clara">
+            <div class="container">
+                <p class="sobretitulo" data-i18n="index.passosSobre">04 · O método</p>
+                <h2 data-i18n-html="index.passosTitulo">Cinco passos para cuidar do seu <span class="pouso">dinheiro</span>.</h2>
+
+                <ol class="passos">
+                    <li class="passo revelar">
+                        <h3 data-i18n="index.passo1Titulo">Anote tudo por 30 dias</h3>
+                        <p data-i18n="index.passo1Texto">Sem julgar e sem cortar nada ainda. O objetivo é descobrir para onde o dinheiro vai de verdade, não para onde você acha que ele vai.</p>
+                    </li>
+                    <li class="passo revelar">
+                        <h3 data-i18n="index.passo2Titulo">Divida a renda: 50 · 30 · 20</h3>
+                        <p data-i18n="index.passo2Texto">Uma referência simples para começar: metade para o essencial, uma parte para o que você gosta e uma parte para o futuro.</p>
+                        <div class="regra" aria-label="Regra 50/30/20">
+                            <div style="--parte: 50"><strong>50%</strong><span data-i18n="index.essencial">Essencial</span></div>
+                            <div style="--parte: 30"><strong>30%</strong><span data-i18n="index.desejos">Desejos</span></div>
+                            <div style="--parte: 20"><strong>20%</strong><span data-i18n="index.futuro">Futuro</span></div>
+                        </div>
+                    </li>
+                    <li class="passo revelar">
+                        <h3 data-i18n="index.passo3Titulo">Pague-se primeiro</h3>
+                        <p data-i18n="index.passo3Texto">Guarde assim que o salário cair, não com o que sobrar no fim do mês. O que sobra no fim do mês costuma ser nada.</p>
+                    </li>
+                    <li class="passo revelar">
+                        <h3 data-i18n="index.passo4Titulo">Monte sua reserva de emergência</h3>
+                        <p data-i18n="index.passo4Texto">Uma meta comum é juntar de 3 a 6 meses do seu custo de vida, num lugar seguro e fácil de sacar.</p>
+                    </li>
+                    <li class="passo revelar">
+                        <h3 data-i18n="index.passo5Titulo">Automatize e revise todo mês</h3>
+                        <p data-i18n="index.passo5Texto">Programe a transferência para a poupança e reserve dez minutos por mês para olhar seus gastos. Constância vale mais que perfeição.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 6. CHAMADA PARA CADASTRO -->
+        <section id="app" class="secao chamada">
+            <div class="container">
+                <p class="sobretitulo" data-i18n="index.chamadaSobre">05 · Comece agora</p>
+                <h2 data-i18n-html="index.chamadaTitulo">Agora o seu <span class="pouso">dinheiro</span> tem endereço.</h2>
+                <p class="texto" data-i18n="index.chamadaTexto">Crie sua conta, registre seus gastos e veja, mês a mês, para onde cada real está indo.</p>
+
+                <ul class="vantagens">
+                    <li data-i18n="index.vantagem1">Registre gastos em segundos</li>
+                    <li data-i18n="index.vantagem2">Veja o total por categoria</li>
+                    <li data-i18n="index.vantagem3">Acompanhe cada mês</li>
+                </ul>
+
+                <div class="chamada-botoes">
+                    <a href="login.html#cadastro" class="botao botao-principal" data-i18n="index.criarMinhaConta">Criar minha conta</a>
+                    <a href="login.html" class="botao botao-secundario" data-i18n="index.jaTenhoConta">Já tenho conta</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <p><span class="marca">Expense <em>Control</em></span></p>
+        <p data-i18n="index.rodape">Feito para você enxergar, entender e cuidar do seu dinheiro.</p>
+    </footer>
+
+    <script src="idioma.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
