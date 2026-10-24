@@ -1,0 +1,10 @@
+###Criar conta
+POST http://localhost:8080/auth/cadastro
+Content-Type: application/json
+
+{
+  "nome": "teste",
+  "email": "teste@exemplo.com",
+  "idioma": "pt-BR",
+  "senha": "123456"
+}
