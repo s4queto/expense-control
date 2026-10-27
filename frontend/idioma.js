@@ -24,6 +24,7 @@ const TEXTOS = {
     'index.navSimulador': 'Simulador',
     'index.navPassos': 'Como guardar',
     'index.navMeusGastos': 'Meus gastos',
+    'index.irParaGastos': 'Ir para meus gastos',
     'index.navCriarConta': 'Criar conta',
 
     'index.heroSobre': 'Educação financeira · Controle de gastos',
@@ -149,6 +150,7 @@ const TEXTOS = {
     'index.navSimulador': 'Simulator',
     'index.navPassos': 'How to save',
     'index.navMeusGastos': 'My expenses',
+    'index.irParaGastos': 'Go to my expenses',
     'index.navCriarConta': 'Sign up',
 
     'index.heroSobre': 'Financial education · Expense tracking',

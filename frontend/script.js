@@ -1,4 +1,20 @@
 /* =========================================================
+   QUEM JÁ ESTÁ LOGADO
+   (roda antes de tudo, porque muda os botões e o layout)
+   ========================================================= */
+
+// o token é salvo no navegador pelo login (ver api.js)
+if (localStorage.getItem('token')) {
+  // some com os botões de conta do final da página e mostra o atalho para o painel
+  document.querySelectorAll('[data-visitante]').forEach(el => el.remove());
+  document.querySelectorAll('[data-logado]').forEach(el => { el.hidden = false; });
+
+  // "Meus gastos" do cabeçalho vai direto para o painel
+  document.querySelector('.nav-conta').href = 'painel.html';
+}
+
+
+/* =========================================================
    1. A PALAVRA "DINHEIRO" VIAJANDO PELO SITE
    ========================================================= */
 

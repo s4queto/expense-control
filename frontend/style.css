@@ -102,7 +102,6 @@ h1, h2, h3 {
   color: var(--fundo);
   background: var(--verde);
 }
-
 /* botão PT / EN (mostra o idioma para o qual vai trocar) */
 .troca-idioma {
   padding: 6px 12px;
@@ -796,6 +795,11 @@ input[type="range"] {
 }
 
 /* ========== BOTÕES ========== */
+/* sem isso o display abaixo venceria o atributo hidden (botão "Ir para meus gastos") */
+.botao[hidden] {
+  display: none;
+}
+
 .botao {
   display: inline-block;
   padding: 16px 32px;

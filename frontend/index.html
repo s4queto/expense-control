@@ -21,7 +21,7 @@
             <a href="#porque" data-i18n="index.navPorque">Por que guardar</a>
             <a href="#simulador" data-i18n="index.navSimulador">Simulador</a>
             <a href="#passos" data-i18n="index.navPassos">Como guardar</a>
-            <a href="login.html" class="nav-conta" data-i18n="index.navMeusGastos">Meus gastos</a>
+            <a href="login.html" class="nav-conta botao-nav" data-i18n="index.navMeusGastos">Meus gastos</a>
             <a href="login.html#cadastro" class="botao-nav" data-i18n="index.navCriarConta">Criar conta</a>
             <button type="button" class="troca-idioma" data-i18n="comum.trocaIdioma" data-i18n-aria="comum.trocaIdiomaAria">EN</button>
         </nav>
@@ -191,8 +191,9 @@
                 </ul>
 
                 <div class="chamada-botoes">
-                    <a href="login.html#cadastro" class="botao botao-principal" data-i18n="index.criarMinhaConta">Criar minha conta</a>
-                    <a href="login.html" class="botao botao-secundario" data-i18n="index.jaTenhoConta">Já tenho conta</a>
+                    <a href="login.html#cadastro" class="botao botao-principal" data-visitante data-i18n="index.criarMinhaConta">Criar minha conta</a>
+                    <a href="login.html" class="botao botao-secundario" data-visitante data-i18n="index.jaTenhoConta">Já tenho conta</a>
+                    <a href="painel.html" class="botao botao-principal" data-logado hidden data-i18n="index.irParaGastos">Ir para meus gastos</a>
                 </div>
             </div>
         </section>
