@@ -25,7 +25,12 @@ Content-Type: application/json
 }
 
 ###buscar gasto que existe
-GET http://localhost:8080/gasto/1
+GET http://localhost:8080/gastos/1
 
 ###buscar o que não existe
-GET http://localhost:8080/gasto/99
+GET http://localhost:8080/gastos/99
+
+
+###listar com token 
+GET http://localhost:8080/gastos
+Authorization: Bearer Colar_token_Aqui

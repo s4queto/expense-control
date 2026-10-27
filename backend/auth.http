@@ -8,3 +8,21 @@ Content-Type: application/json
   "idioma": "pt-BR",
   "senha": "123456"
 }
+
+### Entrar (senha certa)
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@exemplo.com",
+  "senha": "123456"
+}
+
+### Entrar (senha errada)
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@exemplo.com",
+  "senha": "errada"
+}
