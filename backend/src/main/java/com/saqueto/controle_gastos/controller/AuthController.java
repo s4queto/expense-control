@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -56,6 +57,7 @@ public class AuthController {
         }
 
         usuario.setToken(UUID.randomUUID().toString());
+                usuario.setTokenCriadoEm(LocalDateTime.now());
         usuarioRepository.save(usuario);
 
         return ResponseEntity.ok(new

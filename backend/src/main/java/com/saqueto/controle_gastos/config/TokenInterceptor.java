@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -34,6 +35,14 @@ public class TokenInterceptor implements HandlerInterceptor {
         Optional<Usuario> usuario = usuarioRepository.findByToken(token);
 
         if (usuario.isEmpty()) {
+            response.setStatus(401);
+            return false;
+        }
+
+        LocalDateTime criadoEm = usuario.get().getTokenCriadoEm();
+
+        if (criadoEm == null ||
+        criadoEm.plusDays(3).isBefore(LocalDateTime.now())) {
             response.setStatus(401);
             return false;
         }

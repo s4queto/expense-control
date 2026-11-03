@@ -11,8 +11,8 @@ function mostrarMensagem(form, texto, tipo) {
   mensagem.className = `mensagem ${tipo}`;
 }
 
-// quem já está logado vai direto para o painel
-if (pegarToken()) {
+// quem já está logado vai direto para o painel (mas criar conta liberado)
+if (pegarToken() && window.location.hash !== '#cadastro') {
   window.location.href = 'painel.html';
 }
 

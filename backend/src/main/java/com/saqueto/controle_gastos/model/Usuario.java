@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Usuario {
     @Id
@@ -22,6 +24,8 @@ public class Usuario {
     private String senha;
 
     private String token;
+
+    private LocalDateTime tokenCriadoEm;
 
     public Usuario() {
     }
@@ -72,6 +76,14 @@ public class Usuario {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public LocalDateTime getTokenCriadoEm() {
+        return tokenCriadoEm;
+    }
+
+    public void setTokenCriadoEm(LocalDateTime tokenCriadoEm) {
+        this.tokenCriadoEm = tokenCriadoEm;
     }
 }
 
