@@ -26,3 +26,23 @@ Content-Type: application/json
   "email": "teste@exemplo.com",
   "senha": "errada"
 }
+
+### Criar a conta da Ana
+POST http://localhost:8080/auth/cadastro
+Content-Type: application/json
+
+{
+  "nome": "Ana",
+  "email": "ana@exemplo.com",
+  "idioma": "pt-BR",
+  "senha": "123456"
+}
+
+### Entrar como Ana
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "ana@exemplo.com",
+  "senha": "123456"
+}

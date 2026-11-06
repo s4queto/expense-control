@@ -1,9 +1,7 @@
 package com.saqueto.controle_gastos.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,8 +17,13 @@ public class Gasto {
     private LocalDate data;
     private String categoria;
 
-    public Gasto(){
+    @ManyToOne
+    @JsonIgnore
+    private Usuario usuario;
+
+    public Gasto() {
     }
+
     public Gasto(Long id, String descricao, BigDecimal valor, LocalDate data, String categoria) {
         this.id = id;
         this.descricao = descricao;
@@ -53,4 +56,11 @@ public class Gasto {
         return categoria;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
