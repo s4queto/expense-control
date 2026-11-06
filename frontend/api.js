@@ -19,7 +19,19 @@ function pegarNome() {
   return localStorage.getItem('nome') || '';
 }
 
-function sair() {
+async function sair() {
+  const token = pegarToken();
+
+  if (token) {
+    try {
+      await fetch(API_URL + '/auth/sair', {
+        method: 'POST', 
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    }  catch {
+    }
+  }
+
   localStorage.removeItem('token');
   localStorage.removeItem('nome');
   window.location.href = 'login.html';

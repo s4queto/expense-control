@@ -44,24 +44,33 @@ public class AuthController {
         Optional<Usuario> encontrado =
                 usuarioRepository.findByEmail(dados.getEmail());
 
-                if (encontrado.isEmpty()) {
-                    return
-                            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-                }
+        if (encontrado.isEmpty()) {
+            return
+                    ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
-                Usuario usuario = encontrado.get();
+        Usuario usuario = encontrado.get();
 
-                if (!encoder.matches(dados.getSenha(), usuario.getSenha())) {
-                    return
-                            ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if (!encoder.matches(dados.getSenha(), usuario.getSenha())) {
+            return
+                    ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         usuario.setToken(UUID.randomUUID().toString());
-                usuario.setTokenCriadoEm(LocalDateTime.now());
+        usuario.setTokenCriadoEm(LocalDateTime.now());
         usuarioRepository.save(usuario);
 
         return ResponseEntity.ok(new
                 LoginResposta(usuario.getToken(), usuario.getNome(), usuario.getIdioma()));
 
+    }
+
+    @PostMapping("/sair")
+    public ResponseEntity<Void> sair(@RequestAttribute("usuario") Usuario usuario) {
+        usuario.setToken(null);
+        usuario.setTokenCriadoEm(null);
+        usuarioRepository.save(usuario);
+
+        return ResponseEntity.noContent().build();
     }
 }

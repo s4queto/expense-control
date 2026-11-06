@@ -63,4 +63,6 @@ public ResponseEntity<Gasto> buscarPorId(@PathVariable Long id, @RequestAttribut
     gastoRepository.deleteById(id);
     return ResponseEntity.noContent().build();
  }
+
+
 }
