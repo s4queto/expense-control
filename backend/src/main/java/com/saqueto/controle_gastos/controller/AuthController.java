@@ -1,5 +1,6 @@
 package com.saqueto.controle_gastos.controller;
 
+import com.saqueto.controle_gastos.dto.CadastroPedido;
 import com.saqueto.controle_gastos.dto.LoginResposta;
 import com.saqueto.controle_gastos.model.Usuario;
 import com.saqueto.controle_gastos.repository.UsuarioRepository;
@@ -26,17 +27,35 @@ public class AuthController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Void> cadastrar(@RequestBody Usuario usuario) {
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+    public ResponseEntity<Void> cadastrar(@RequestBody CadastroPedido pedido) {
+        if (pedidoInvalido(pedido)) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (usuarioRepository.existsByEmail(pedido.email())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-        usuario.setId(null);
-        usuario.setToken(null);
-        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        Usuario usuario = new Usuario();
+        usuario.setNome(pedido.nome());
+        usuario.setEmail(pedido.email());
+        usuario.setIdioma(pedido.idioma());
+        usuario.setSenha(encoder.encode(pedido.senha()));
         usuarioRepository.save(usuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    private boolean pedidoInvalido(CadastroPedido pedido) {
+        if (pedido.nome() == null || pedido.nome().isBlank() || pedido.nome().length() > 100) {
+            return true;
+        }
+        if (pedido.email() == null || !pedido.email().matches("[^@\\s]+@[^@\\s]+\\.[^@\\s]+")) {
+            return true;
+        }
+        if (pedido.senha() == null || pedido.senha().length() < 6 || pedido.senha().length() > 72) {
+            return true;
+        }
+        return false;
     }
 
     @PostMapping("/login")
